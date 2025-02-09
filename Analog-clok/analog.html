@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materialize Analog Clock</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1E88E5, #8E24AA);
+            color: white;
+            text-align: center;
+            padding-top: 50px;
+        }
+        .clock-container {
+            width: 300px;
+            height: 300px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            margin: auto;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hand {
+            position: absolute;
+            width: 35%;
+            height: 6px;
+            background: #1E88E5;
+            top: 50%;
+            left: 50%;
+            transform-origin: 0%;
+            transform: rotate(90deg);
+            transition: transform 0.2s ease-in-out;
+            border-radius: 5px;
+        }
+        .minute {
+            width: 40%;
+            height: 4px;
+            background: #0D47A1;
+        }
+        .second {
+            width: 45%;
+            height: 2px;
+            background: red;
+        }
+        .center-dot {
+            width: 12px;
+            height: 12px;
+            background: red;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .clock-numbers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+        .clock-numbers div {
+            position: absolute;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+
+    <h4>Materialize Analog Clock</h4>
+    <div class="clock-container">
+        <div class="clock-numbers">
+            <div style="top: 8%; left: 50%;">12</div>
+            <div style="top: 18%; left: 78%;">1</div>
+            <div style="top: 35%; left: 90%;">2</div>
+            <div style="top: 50%; left: 92%;">3</div>
+            <div style="top: 68%; left: 85%;">4</div>
+            <div style="top: 82%; left: 70%;">5</div>
+            <div style="top: 90%; left: 50%;">6</div>
+            <div style="top: 82%; left: 30%;">7</div>
+            <div style="top: 68%; left: 15%;">8</div>
+            <div style="top: 50%; left: 8%;">9</div>
+            <div style="top: 35%; left: 12%;">10</div>
+            <div style="top: 18%; left: 22%;">11</div>
+        </div>
+        <div class="hand hour" id="hour"></div>
+        <div class="hand minute" id="minute"></div>
+        <div class="hand second" id="second"></div>
+        <div class="center-dot"></div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours() % 12;
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+
+            const hourDeg = (hours * 30) + (minutes * 0.5);
+            const minuteDeg = (minutes * 6);
+            const secondDeg = (seconds * 6);
+
+            document.getElementById("hour").style.transform = `rotate(${90 + hourDeg}deg)`;
+            document.getElementById("minute").style.transform = `rotate(${90 + minuteDeg}deg)`;
+            document.getElementById("second").style.transform = `rotate(${90 + secondDeg}deg)`;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+
+</body>
+</html>
